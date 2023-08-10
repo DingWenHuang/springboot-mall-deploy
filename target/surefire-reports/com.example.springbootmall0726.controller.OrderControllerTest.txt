@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.springbootmall0726.controller.OrderControllerTest
 -------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.698 s - in com.example.springbootmall0726.controller.OrderControllerTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.684 s - in com.example.springbootmall0726.controller.OrderControllerTest

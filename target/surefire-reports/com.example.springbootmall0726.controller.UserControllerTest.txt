@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.springbootmall0726.controller.UserControllerTest
 -------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.119 s - in com.example.springbootmall0726.controller.UserControllerTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.135 s - in com.example.springbootmall0726.controller.UserControllerTest
