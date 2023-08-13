@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@Tag(name = "商品功能", description = "提供商品的CRUD API")
+@Tag(name = "商品功能", description = "提供商品的CRUD API")
 @RestController
 public class ProductController {
 
