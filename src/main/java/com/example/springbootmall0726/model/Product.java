@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class Product {
 
+    // Product是用來接收資料庫查詢出來的商品資料，包含商品id、商品名稱、商品類別、商品圖片、商品價格、商品庫存、商品描述、商品建立時間、商品最後修改時間
+
     private Integer productId;
     private String productName;
     private ProductCategory category;

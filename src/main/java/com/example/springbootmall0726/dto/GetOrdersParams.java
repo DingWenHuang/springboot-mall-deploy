@@ -2,6 +2,9 @@ package com.example.springbootmall0726.dto;
 
 public class GetOrdersParams {
 
+    // OrderQueryParams是用來接收前端傳來的資料，用來查詢訂單
+    // 需要提供使用者id、資料數量、跳過幾筆資料
+
     private Integer userId;
 
     private Integer limit;

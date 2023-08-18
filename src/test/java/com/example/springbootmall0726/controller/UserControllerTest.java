@@ -1,7 +1,7 @@
 package com.example.springbootmall0726.controller;
 
 import com.example.springbootmall0726.dto.UserLoginRequest;
-import com.example.springbootmall0726.dto.UserRegisterQuest;
+import com.example.springbootmall0726.dto.UserRegisterRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,11 +31,11 @@ class UserControllerTest {
     @Transactional
     @Test
     public void register_success() throws Exception {
-        UserRegisterQuest userRegisterQuest = new UserRegisterQuest();
-        userRegisterQuest.setEmail("test1@test.com");
-        userRegisterQuest.setPassword("123");
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
+        userRegisterRequest.setEmail("test1@test.com");
+        userRegisterRequest.setPassword("123");
 
-        String json = objectMapper.writeValueAsString(userRegisterQuest);
+        String json = objectMapper.writeValueAsString(userRegisterRequest);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/users/register")
@@ -54,11 +53,11 @@ class UserControllerTest {
     @Transactional
     @Test
     public void register_illegalEmailFormat() throws Exception {
-        UserRegisterQuest userRegisterQuest = new UserRegisterQuest();
-        userRegisterQuest.setEmail("test2.com");
-        userRegisterQuest.setPassword("123");
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
+        userRegisterRequest.setEmail("test2.com");
+        userRegisterRequest.setPassword("123");
 
-        String json = objectMapper.writeValueAsString(userRegisterQuest);
+        String json = objectMapper.writeValueAsString(userRegisterRequest);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/users/register")
@@ -72,11 +71,11 @@ class UserControllerTest {
     @Transactional
     @Test
     public void register_emailHasBeenRegistered() throws Exception {
-        UserRegisterQuest userRegisterQuest = new UserRegisterQuest();
-        userRegisterQuest.setEmail("test3@test.com");
-        userRegisterQuest.setPassword("123");
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
+        userRegisterRequest.setEmail("test3@test.com");
+        userRegisterRequest.setPassword("123");
 
-        String json = objectMapper.writeValueAsString(userRegisterQuest);
+        String json = objectMapper.writeValueAsString(userRegisterRequest);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/users/register")
@@ -97,15 +96,15 @@ class UserControllerTest {
     @Transactional
     @Test
     public void login_success() throws Exception {
-        UserRegisterQuest userRegisterQuest = new UserRegisterQuest();
-        userRegisterQuest.setEmail("test4@test.com");
-        userRegisterQuest.setPassword("123");
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
+        userRegisterRequest.setEmail("test4@test.com");
+        userRegisterRequest.setPassword("123");
 
-        register(userRegisterQuest);
+        register(userRegisterRequest);
 
         UserLoginRequest userLoginRequest = new UserLoginRequest();
-        userLoginRequest.setEmail(userRegisterQuest.getEmail());
-        userLoginRequest.setPassword(userRegisterQuest.getPassword());
+        userLoginRequest.setEmail(userRegisterRequest.getEmail());
+        userLoginRequest.setPassword(userRegisterRequest.getPassword());
 
         String json = objectMapper.writeValueAsString(userLoginRequest);
 
@@ -125,14 +124,14 @@ class UserControllerTest {
     @Transactional
     @Test
     public void login_wrongPassword() throws Exception {
-        UserRegisterQuest userRegisterQuest = new UserRegisterQuest();
-        userRegisterQuest.setEmail("test5@test.com");
-        userRegisterQuest.setPassword("123");
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
+        userRegisterRequest.setEmail("test5@test.com");
+        userRegisterRequest.setPassword("123");
 
-        register(userRegisterQuest);
+        register(userRegisterRequest);
 
         UserLoginRequest userLoginRequest = new UserLoginRequest();
-        userLoginRequest.setEmail(userRegisterQuest.getEmail());
+        userLoginRequest.setEmail(userRegisterRequest.getEmail());
         userLoginRequest.setPassword("456");
 
         String json = objectMapper.writeValueAsString(userLoginRequest);
@@ -149,15 +148,15 @@ class UserControllerTest {
     @Transactional
     @Test
     public void login_illegalEmailFormat() throws Exception {
-        UserRegisterQuest userRegisterQuest = new UserRegisterQuest();
-        userRegisterQuest.setEmail("test6@test.com");
-        userRegisterQuest.setPassword("123");
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
+        userRegisterRequest.setEmail("test6@test.com");
+        userRegisterRequest.setPassword("123");
 
-        register(userRegisterQuest);
+        register(userRegisterRequest);
 
         UserLoginRequest userLoginRequest = new UserLoginRequest();
         userLoginRequest.setEmail("test6.com");
-        userLoginRequest.setPassword(userRegisterQuest.getPassword());
+        userLoginRequest.setPassword(userRegisterRequest.getPassword());
 
         String json = objectMapper.writeValueAsString(userLoginRequest);
 
@@ -187,8 +186,8 @@ class UserControllerTest {
                 .andExpect(status().is(400));
     }
 
-    private void register(UserRegisterQuest userRegisterQuest) throws Exception {
-        String json = objectMapper.writeValueAsString(userRegisterQuest);
+    private void register(UserRegisterRequest userRegisterRequest) throws Exception {
+        String json = objectMapper.writeValueAsString(userRegisterRequest);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/users/register")
@@ -198,7 +197,7 @@ class UserControllerTest {
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(201))
                 .andExpect(jsonPath("$.userId", notNullValue()))
-                .andExpect(jsonPath("$.email", equalTo(userRegisterQuest.getEmail())))
+                .andExpect(jsonPath("$.email", equalTo(userRegisterRequest.getEmail())))
                 .andExpect(jsonPath("$.createdDate", notNullValue()))
                 .andExpect(jsonPath("$.lastModifiedDate", notNullValue()));
     }

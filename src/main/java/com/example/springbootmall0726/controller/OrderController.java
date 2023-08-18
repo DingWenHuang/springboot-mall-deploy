@@ -25,8 +25,11 @@ public class OrderController {
     @PostMapping("/users/{userId}/orders")
     public ResponseEntity<Order> createOrder(@PathVariable Integer userId,
                                          @RequestBody @Valid CreateOrderRequest createOrderRequest) {
+
+        // 建立訂單，並取得建立後的訂單id
         Integer orderId = orderService.createOrder(userId, createOrderRequest);
 
+        // 根據訂單id取得該筆訂單資料
         Order order = orderService.getOrderById(orderId);
 
         return ResponseEntity.status(201).body(order);
@@ -37,15 +40,19 @@ public class OrderController {
     public ResponseEntity<Page<Order>> getOrders(@PathVariable Integer userId,
                                                  @RequestParam(defaultValue = "5") Integer limit,
                                                  @RequestParam(defaultValue = "0") Integer offset) {
+        // 將查詢參數封裝成物件
         GetOrdersParams getOrdersParams = new GetOrdersParams();
         getOrdersParams.setUserId(userId);
         getOrdersParams.setLimit(limit);
         getOrdersParams.setOffset(offset);
 
+        // 取得訂單列表
         List<Order> orderList = orderService.getOrders(getOrdersParams);
 
+        // 取得訂單總筆數
         Integer total = orderService.countOrders(getOrdersParams);
 
+        // 將訂單列表與訂單總筆數封裝成分頁物件
         Page<Order> orderPage = new Page<>();
         orderPage.setLimit(limit);
         orderPage.setOffset(offset);

@@ -5,6 +5,10 @@ import jakarta.validation.constraints.NotBlank;
 
 public class UserLoginRequest {
 
+    // UserLoginRequest是用來接收前端傳來的資料，用來登入
+    // 需要提供使用者email和密碼
+
+
     @NotBlank
     @Email
     private String email;

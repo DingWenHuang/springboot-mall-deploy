@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 
 public class BuyItem {
 
+    // BuyItem表示訂單內的購買項目，需要提供商品id和購買數量
+
     @NotNull
     private Integer productId;
 

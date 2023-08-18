@@ -31,6 +31,7 @@ public class ProductController {
                                                      @RequestParam(defaultValue = "5") Integer limit,
                                                      @RequestParam(defaultValue = "0") Integer offset
     ) {
+        // 將查詢商品參數封裝成物件
         GetProductsParams getProductsParams = new GetProductsParams();
         getProductsParams.setSearch(search);
         getProductsParams.setCategory(category);
@@ -39,10 +40,13 @@ public class ProductController {
         getProductsParams.setLimit(limit);
         getProductsParams.setOffset(offset);
 
+        // 取得商品列表
         List<Product> productList = productService.getProducts(getProductsParams);
 
+        // 商品總筆數
         Integer total = productService.countProducts(getProductsParams);
 
+        // 將商品列表與商品總筆數封裝成分頁物件
         Page<Product> productPage = new Page<>();
         productPage.setLimit(limit);
         productPage.setOffset(offset);
@@ -55,6 +59,8 @@ public class ProductController {
     @Operation(summary= "根據商品id取得該商品數據")
     @GetMapping("/products/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable Integer productId) {
+
+        // 根據商品id取得該筆商品資料
         Product product = productService.getProductById(productId);
 
         return ResponseEntity.status(200).body(product);
@@ -63,8 +69,11 @@ public class ProductController {
     @Operation(summary= "新增商品到資料庫內，並回傳新增後的內容")
     @PostMapping("/products")
     public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest) {
+
+        // 建立商品，並取得建立後的商品id
         Integer productId = productService.createProduct(productRequest);
 
+        // 根據商品id取得該筆商品資料
         Product product = productService.getProductById(productId);
 
         return ResponseEntity.status(201).body(product);
@@ -74,8 +83,11 @@ public class ProductController {
     @PutMapping("/products/{productId}")
     public ResponseEntity<Product> updateProduct(@PathVariable Integer productId,
                                                  @RequestBody @Valid ProductRequest productRequest) {
+
+        // 根據商品id更新商品
         productService.updateProduct(productId, productRequest);
 
+        // 根據商品id取得更新後的商品資料
         Product product  = productService.getProductById(productId);
 
         return ResponseEntity.status(200).body(product);
@@ -83,7 +95,9 @@ public class ProductController {
 
     @Operation(summary= "根據商品id刪除商品，並回傳204 No Content")
     @DeleteMapping("/products/{productId}")
-    public ResponseEntity deleteProduct(@PathVariable Integer productId) {
+    public ResponseEntity<?> deleteProduct(@PathVariable Integer productId) {
+
+        // 不管要刪除的商品是否存在，都回傳204 No Content
         productService.deleteProductById(productId);
 
         return ResponseEntity.status(204).build();

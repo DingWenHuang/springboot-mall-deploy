@@ -11,8 +11,12 @@ import java.sql.SQLException;
 public class ProductRowMapper implements RowMapper<Product> {
     @Override
     public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+        // 建立OrderRowMapper類別，實作RowMapper介面，並實作mapRow方法
+        // mapRow方法是用來將資料庫查詢出來的資料轉換成Product物件
         Product product = new Product();
 
+        // 透過ResultSet物件取得資料庫查詢出來的資料，並將資料設定到Product物件中
         product.setProductId(rs.getInt("product_id"));
         product.setProductName(rs.getString("product_name"));
         product.setCategory(ProductCategory.valueOf(rs.getString("category")));

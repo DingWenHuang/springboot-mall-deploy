@@ -7,6 +7,12 @@ import java.math.BigDecimal;
 
 public class ProductRequest {
 
+    // ProductRequest是用來接收前端傳來的資料，用來新增商品
+    // 需要提供商品名稱、商品類別、商品圖片、商品價格、商品庫存、商品描述
+    // 商品類別是ProductCategory列舉類別，包含FOOD,CAR,BOOK三種類別
+    // 商品價格是BigDecimal類別，用來處理金額的計算，避免使用double或float
+    // description可以為空字串，但其他欄位都不可以為空
+
     @NotNull
     private String productName;
 

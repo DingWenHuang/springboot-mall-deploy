@@ -4,12 +4,15 @@ import java.math.BigDecimal;
 
 public class OrderItem {
 
+    // OrderItem是用來接收資料庫查詢出來的訂單內容資料，包含訂單內容id、訂單id、商品id、購買數量、商品小計、商品名稱、商品圖片網址
+
     private Integer orderItemId;
     private Integer orderId;
     private Integer productId;
     private Integer quantity;
     private BigDecimal amount;
 
+    // 商品名稱和商品圖片網址是從商品資料庫查詢出來的，為了提供前端顯示訂單內容時使用
     private String productName;
     private String imageUrl;
 
